@@ -38,3 +38,17 @@ class JSONReport:
             )
 
         return output_path
+
+def attach_quality(report: dict, quality_result):
+    """Attach quality metrics to exported JSON."""
+    if quality_result is None:
+        return report
+    report["image_quality"] = {
+        "overall_score": getattr(quality_result, "overall_score", None),
+        "blur_score": getattr(quality_result, "blur_score", None),
+        "exposure_score": getattr(quality_result, "exposure_score", None),
+        "contrast_score": getattr(quality_result, "contrast_score", None),
+        "recommendation": getattr(quality_result, "recommendation", ""),
+        "analysis_allowed": getattr(quality_result, "analysis_allowed", False),
+    }
+    return report

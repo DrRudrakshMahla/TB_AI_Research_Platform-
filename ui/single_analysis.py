@@ -83,3 +83,9 @@ class SingleAnalysisUI:
                 json_file,
             ],
         )
+
+# v4 Quality UI helper
+def quality_status(result):
+    if result is None:
+        return ""
+    return f"Quality: {getattr(result,'overall_score',0):.0f}/100"

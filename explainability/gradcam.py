@@ -63,3 +63,17 @@ class NativeGradCAM:
     def save(image: Image.Image, output_path: str):
         image.save(output_path)
         return output_path
+    @staticmethod
+    def normalize_heatmap(cam: np.ndarray) -> np.ndarray:
+        cam = cam.astype(np.float32)
+        cam -= cam.min()
+        if cam.max() > 0:
+            cam /= cam.max()
+        return cam
+
+    @staticmethod
+    def blend_overlay(rgb_image: np.ndarray, cam: np.ndarray, alpha: float = 0.45) -> np.ndarray:
+        cam = NativeGradCAM.normalize_heatmap(cam)
+        heatmap = cv2.applyColorMap(np.uint8(cam * 255), cv2.COLORMAP_JET)
+        heatmap = cv2.cvtColor(heatmap, cv2.COLOR_BGR2RGB)
+        return cv2.addWeighted(rgb_image, 1-alpha, heatmap, alpha, 0)

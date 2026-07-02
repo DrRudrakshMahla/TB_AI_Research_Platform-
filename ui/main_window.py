@@ -46,3 +46,4 @@ class MainWindow:
                     self.research.build()
 
         return demo
+# v4 Quality integration ready

@@ -34,3 +34,8 @@ Thumbs.db
 # Build
 build/
 dist/
+
+# Temporary integration files
+patches/
+patch_merge/
+TB_AI_Research_Platform_v3all_files.zip

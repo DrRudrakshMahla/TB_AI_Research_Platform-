@@ -57,3 +57,14 @@ class ImageProcessor:
             width=width,
             height=height,
         )
+
+
+import cv2
+
+def compute_basic_quality(image):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) if image.ndim==3 else image
+    return {
+        "blur": float(cv2.Laplacian(gray, cv2.CV_64F).var()),
+        "brightness": float(gray.mean()),
+        "contrast": float(gray.std()),
+    }
