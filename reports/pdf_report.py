@@ -34,3 +34,15 @@ class PDFReport:
         doc=SimpleDocTemplate(str(output_path))
         doc.build(story)
         return output_path
+
+def build_quality_section(quality_result):
+    """Return quality summary for inclusion in PDF reports."""
+    if quality_result is None:
+        return []
+    return [
+        ("Overall Quality", getattr(quality_result, "overall_score", None)),
+        ("Blur", getattr(quality_result, "blur_score", None)),
+        ("Exposure", getattr(quality_result, "exposure_score", None)),
+        ("Contrast", getattr(quality_result, "contrast_score", None)),
+        ("Recommendation", getattr(quality_result, "recommendation", "")),
+    ]
