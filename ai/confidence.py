@@ -32,3 +32,17 @@ class ConfidenceEngine:
         result.metadata["tb_probability_percent"] = round(p * 100, 2)
 
         return result
+
+
+    @staticmethod
+    def update_with_quality(result: PredictionResult, quality_score: float | None):
+        ConfidenceEngine.update(result)
+        result.image_quality = quality_score
+        if quality_score is None:
+            return result
+        result.confidence_label = (
+            "Reliable" if quality_score>=80 else
+            "Interpret with caution" if quality_score>=60 else
+            "Low reliability due to image quality"
+        )
+        return result
