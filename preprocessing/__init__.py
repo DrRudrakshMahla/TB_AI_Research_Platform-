@@ -9,3 +9,4 @@ __all__ = [
     "preprocess",
     "load_image",
 ]
+from .image_processor import compute_basic_quality
